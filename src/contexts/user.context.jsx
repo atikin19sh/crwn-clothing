@@ -3,6 +3,7 @@ import {
   createUserDocumentFromAuth,
   onAuthStateChangedListener,
 } from "../utils/firebase/firebase.utils";
+import { createAction } from "../utils/reducer/reducer.utils";
 
 export const UserContext = createContext({
   currentUser: null,
@@ -11,11 +12,11 @@ export const UserContext = createContext({
 
 const INITIAL_STATE = {
   currentUser: null,
-}
+};
 
-const USER_ACTION_LIST = {
+const USER_ACTION_TYPES = {
   SET_CURRENT_USER: "SET_CURRENT_USER",
-}
+};
 
 const userReducer = (state, action) => {
   const { type, payload } = action;
@@ -28,14 +29,14 @@ const userReducer = (state, action) => {
       };
     default:
       throw new Error(`Not handled action ${type} in userReducer`);
-  };
-}
+  }
+};
 
 export const UserProvider = ({ children }) => {
   const [{ currentUser }, dispatch] = useReducer(userReducer, INITIAL_STATE);
 
   const setCurrentUser = (user) => {
-    dispatch({ type: USER_ACTION_LIST.SET_CURRENT_USER, payload: user});
+    dispatch(createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user));
   };
 
   const value = { currentUser, setCurrentUser };
