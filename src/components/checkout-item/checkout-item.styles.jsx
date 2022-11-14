@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CheckoutItemContainer = styled.div`
+export const CheckoutItemContainer = styled.section`
   width: 100%;
   display: flex;
   min-height: 100px;
@@ -16,14 +16,14 @@ export const CheckoutItemContainer = styled.div`
 `;
 
 export const BaseSpan = styled.span`
-  width: 23%; 
+  width: 23%;
 `;
 
 export const Quantity = styled(BaseSpan)`
   display: flex;
-`; 
+`;
 
-export const Arrow = styled.div`
+export const Arrow = styled.button`
   cursor: pointer;
 `;
 
@@ -36,7 +36,7 @@ export const ImageContainer = styled.div`
   padding-right: 15px;
 `;
 
-export const RemoveButton = styled.div`
+export const RemoveButton = styled.button`
   padding-left: 12px;
   cursor: pointer;
 `;

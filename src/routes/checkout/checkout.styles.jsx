@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CheckoutContainer = styled.div`
+export const CheckoutContainer = styled.main`
   width: 55%;
   min-height: 90vh;
   display: flex;
@@ -9,13 +9,13 @@ export const CheckoutContainer = styled.div`
   margin: 50px auto 0;
 `;
 
-export const Total = styled.span`
+export const Total = styled.footer`
   margin-top: 30px;
   margin-left: auto;
   font-size: 36px;
 `;
 
-export const Header = styled.div`
+export const Header = styled.header`
   width: 100%;
   padding: 10px 0;
   display: flex;

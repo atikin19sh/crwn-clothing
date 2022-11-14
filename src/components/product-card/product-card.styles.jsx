@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ProductCardContainer = styled.div`
+export const ProductCardContainer = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -43,9 +43,14 @@ export const Footer = styled.div`
   font-size: 18px;
 `;
 
-export const Name = styled.span`
+export const Name = styled.h3`
   width: 90%;
-  margin-bottom: 15px;
+  margin: 0px 0px 15px 0px;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 `;
 
 export const Price = styled.span`

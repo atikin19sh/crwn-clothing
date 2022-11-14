@@ -58,18 +58,12 @@ export const addCollectionAndDocuments = async (
   console.log("done");
 };
 
-export const getCategoriesAndDocuments = async () => {
-  const collectionRef = collection(db, "categories");
+export const getCategoriesAndDocuments = async (path) => {
+  const collectionRef = collection(db, path);
   const q = query(collectionRef);
-
   const querySnapshot = await getDocs(q);
-  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-    const { title, items } = docSnapshot.data();
-    acc[title.toLowerCase()] = items;
-    return acc;
-  }, {});
 
-  return categoryMap;
+  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
 };
 
 export const createUserDocumentFromAuth = async (
@@ -77,10 +71,7 @@ export const createUserDocumentFromAuth = async (
   additionalInformation = {}
 ) => {
   if (!userAuth) return;
-  // создаем инстанс документа в коллекции users базы данны db с уникальным id
   const userDocRef = doc(db, "users", userAuth.uid);
-
-  // получаем данные (data) инстанса документа
   const userSnapshot = await getDoc(userDocRef);
 
   if (!userSnapshot.exists()) {

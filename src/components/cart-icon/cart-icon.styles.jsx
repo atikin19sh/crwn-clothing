@@ -7,7 +7,7 @@ export const ShoppingIcon = styled(ShoppingSvg)`
   height: 24px;
 `;
 
-export const CartIconContainer = styled.div`
+export const CartIconContainer = styled.button`
   width: 45px;
   height: 45px;
   position: relative;
