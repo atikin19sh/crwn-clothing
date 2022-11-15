@@ -26,7 +26,7 @@ const App = () => {
     });
 
     return unsubscribe;
-  }, []);
+  });
 
   return (
     <Routes>
