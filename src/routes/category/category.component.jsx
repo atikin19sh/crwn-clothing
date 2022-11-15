@@ -8,10 +8,13 @@ import { CategoryContainer, Title } from "./category.styles";
 
 const Category = () => {
   const { category } = useParams();
+  console.log("render/rerendering");
   const categories = useSelector(selectCategories);
+  console.log("selector fired");
   const [products, setProducts] = useState(categories[category]);
 
   useEffect(() => {
+    console.log("effect setProducts fired");
     setProducts(categories[category]);
   }, [category, categories]);
 
