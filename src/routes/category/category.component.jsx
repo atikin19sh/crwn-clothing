@@ -13,13 +13,15 @@ import Spinner from "../../components/spinner/spinner.component";
 import { CategoryContainer, Title } from "./category.styles";
 
 const Category = () => {
+  const categoriesIsLoading = useSelector(selectCategoriesIsLoading);
   const { category } = useParams();
   const categories = useSelector(selectCategoriesMap);
-  const categoriesIsLoading = useSelector(selectCategoriesIsLoading);
-  const [products, setProducts] = useState(categories[category]);
+  const {items, titleRU} = categories[category];
+  const [products, setProducts] = useState(items);
 
   useEffect(() => {
-    setProducts(categories[category]);
+    const { items } = categories[category];
+    setProducts(items);
   }, [category, categories]);
 
   return (
@@ -28,7 +30,7 @@ const Category = () => {
         <Spinner />
       ) : (
         <Fragment>
-          <Title>{category.toUpperCase()}</Title>
+          <Title>{titleRU.toUpperCase()}</Title>
           <CategoryContainer>
             {products &&
               products.map((product) => (

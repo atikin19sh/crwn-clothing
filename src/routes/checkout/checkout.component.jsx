@@ -22,25 +22,25 @@ const Checkout = () => {
     <CheckoutContainer>
       <Header>
         <HeaderBlock>
-          <span>Product</span>
+          <span>Товар</span>
         </HeaderBlock>
         <HeaderBlock>
-          <span>Description</span>
+          <span>Описание</span>
         </HeaderBlock>
         <HeaderBlock>
-          <span>Quantity</span>
+          <span>Количество</span>
         </HeaderBlock>
         <HeaderBlock>
-          <span>Price</span>
+          <span>Цена</span>
         </HeaderBlock>
         <HeaderBlock>
-          <span>Remove</span>
+          <span>Удалить</span>
         </HeaderBlock>
       </Header>
       {cartItems.map((cartItem) => (
         <CheckoutItem key={cartItem.id} cartItem={cartItem} />
       ))}
-      <Total>Total: ${cartTotal}</Total>
+      <Total>Итого: ${cartTotal}</Total>
     </CheckoutContainer>
   );
 };

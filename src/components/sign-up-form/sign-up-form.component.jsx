@@ -1,9 +1,7 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
-import {
-  createAuthUserWithEmailAndPassword,
-  createUserDocumentFromAuth,
-} from "../../utils/firebase/firebase.utils";
+import { signUpStart } from "../../store/user/user.action";
 
 import Button from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
@@ -18,6 +16,7 @@ const defaultFormFields = {
 };
 
 const SignUpForm = () => {
+  const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
@@ -29,23 +28,20 @@ const SignUpForm = () => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("Password is not confirmed");
+      alert("Неверный пароль!");
       return;
     }
 
-    try {
-      const { user } = await createAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-      await createUserDocumentFromAuth(user, { displayName });
+    try { 
+      dispatch(signUpStart(displayName, email, password));
       resetFormFields();
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
-        alert("Cannot create a new user, email already in use");
+        alert("Невозможно создать нового пользователя, email уже используется");
       }
-      console.log("user creation encountered an error", error);
+      console.log("user creation encountered an error", error);  
     }
+
   };
 
   const handleChange = async (event) => {
@@ -55,11 +51,11 @@ const SignUpForm = () => {
 
   return (
     <SignUpFormContainer>
-      <h2>Don't have an account?</h2>
-      <span>Sign up with email and password</span>
+      <h2>У вас нет учетной записи?</h2>
+      <span>Пройдите регистрацию с помощью электронной почты и пароля</span>
       <form onSubmit={handleSubmit}>
         <FormInput
-          label="Display Name"
+          label="Имя пользователя"
           required
           type="text"
           name="displayName"
@@ -77,7 +73,7 @@ const SignUpForm = () => {
         />
 
         <FormInput
-          label="Password"
+          label="Пароль"
           required
           type="password"
           name="password"
@@ -86,14 +82,14 @@ const SignUpForm = () => {
         />
 
         <FormInput
-          label="Confirm Password"
+          label="Подтвердите пароль"
           required
           type="password"
           name="confirmPassword"
           value={confirmPassword}
           onChange={handleChange}
         />
-        <Button type="submit">Sign Up</Button>
+        <Button type="submit">Регистрация</Button>
       </form>
     </SignUpFormContainer>
   );

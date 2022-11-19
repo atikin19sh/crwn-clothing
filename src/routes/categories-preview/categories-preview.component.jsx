@@ -18,10 +18,10 @@ const CategoriesPreview = () => {
         <Spinner />
       ) : (
         Object.keys(categories).map((title) => {
-          const products = categories[title];
+          const productsData = categories[title];
           return (
             <section key={title}>
-              <CategoryPreview title={title} products={products} />
+              <CategoryPreview title={title} productsData={productsData} />
             </section>
           );
         })

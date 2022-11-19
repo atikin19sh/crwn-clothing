@@ -1,9 +1,10 @@
 import { useState } from "react";
-import {
-  createUserDocumentFromAuth,
-  signInAuthUserWithEmailAndPassword,
-  signInWithGooglePopup,
-} from "../../utils/firebase/firebase.utils";
+import { useDispatch } from "react-redux";
+
+import { 
+  emailSignInStart, 
+  googleSignInStart 
+} from "../../store/user/user.action";
 
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
@@ -18,19 +19,20 @@ const defaultFormFields = {
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
+  const dispatch = useDispatch();
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const googleSignInHandler = () => {
+    dispatch(googleSignInStart());
+  };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
     try {
-      const { user } = await signInAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
+      dispatch(emailSignInStart(email, password));
       resetFormFields();
     } catch (error) {
       switch (error.code) {
@@ -52,15 +54,10 @@ const SignInForm = () => {
     setFormFields({ ...formFields, [name]: value });
   };
 
-  const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
-  };
-
   return (
     <SignInFormContainer>
-      <h2>Already have an account?</h2>
-      <span>Sign in with your email and password</span>
+      <h2>У вас уже есть учетная запись?</h2>
+      <span>Войдите с помощью вашей электронной почты и пароля</span>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="E-mail"
@@ -72,7 +69,7 @@ const SignInForm = () => {
         />
 
         <FormInput
-          label="Password"
+          label="Пароль"
           required
           type="password"
           name="password"
@@ -80,13 +77,13 @@ const SignInForm = () => {
           onChange={handleChange}
         />
         <ButtonsContainer>
-          <Button type="submit">Sign In</Button>
+          <Button type="submit">ВОЙТИ</Button>
           <Button
             type="button"
-            onClick={signInWithGoogle}
+            onClick={googleSignInHandler}
             buttonType={BUTTON_TYPE_CLASSES.google}
           >
-            Sign In With Google
+            ВХОД ЧЕРЕЗ GOOGLE
           </Button>
         </ButtonsContainer>
       </form>
