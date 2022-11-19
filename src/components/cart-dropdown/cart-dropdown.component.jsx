@@ -30,10 +30,10 @@ const CartDropdown = () => {
         {cartItems.length ? (
           cartItems.map((item) => <CartItem key={item.id} product={item} />)
         ) : (
-          <EmptyMessage>Your cart is empty</EmptyMessage>
+          <EmptyMessage>Ваша корзина пуста</EmptyMessage>
         )}
       </CartItems>
-      <Button onClick={goToCheckoutHandler}>GO TO CHECKOUT</Button>
+      <Button onClick={goToCheckoutHandler}>К покупкам</Button>
     </CartDropdownContainer>
   );
 };
