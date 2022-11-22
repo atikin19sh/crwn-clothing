@@ -4,7 +4,6 @@ const CATEGORIES_INITIAL_STATE = {
   categories: [],
   isLoading: false,
   error: null,
-  test: "test",
 };
 
 export const categoriesReducer = (

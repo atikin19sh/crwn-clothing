@@ -13,27 +13,25 @@ import Spinner from "../../components/spinner/spinner.component";
 import { CategoryContainer, Title } from "./category.styles";
 
 const Category = () => {
-  const categoriesIsLoading = useSelector(selectCategoriesIsLoading);
   const { category } = useParams();
-  const categories = useSelector(selectCategoriesMap);
-  const {items, titleRU} = categories[category];
-  const [products, setProducts] = useState(items);
+  const categoriesMap = useSelector(selectCategoriesMap);
+  const isLoading = useSelector(selectCategoriesIsLoading);
+  const [productsData, setProductsData] = useState(categoriesMap[category]);
 
   useEffect(() => {
-    const { items } = categories[category];
-    setProducts(items);
-  }, [category, categories]);
+    setProductsData(categoriesMap[category]);
+  }, [category, categoriesMap]);
 
   return (
     <main>
-      {categoriesIsLoading ? (
+      {isLoading ? (
         <Spinner />
       ) : (
         <Fragment>
-          <Title>{titleRU.toUpperCase()}</Title>
+          <Title>{productsData && productsData.titleRU.toUpperCase()}</Title>
           <CategoryContainer>
-            {products &&
-              products.map((product) => (
+            {productsData &&
+              productsData.items.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
           </CategoryContainer>

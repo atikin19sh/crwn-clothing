@@ -7,6 +7,14 @@ export const CheckoutContainer = styled.main`
   flex-direction: column;
   align-items: center;
   margin: 50px auto 0;
+
+  @media (max-width: 992px) {
+    width: 75%;
+  }
+
+  @media (max-width: 576px) {
+    width: 90%;
+  }
 `;
 
 export const Total = styled.footer`
@@ -21,6 +29,10 @@ export const Header = styled.header`
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid darkgrey;
+
+  @media (max-width: 576px) {
+    display: none;
+  }
 `;
 
 export const HeaderBlock = styled.div`

@@ -3,10 +3,9 @@ import { useDispatch } from "react-redux";
 
 import { signUpStart } from "../../store/user/user.action";
 
-import Button from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
 
-import { SignUpFormContainer } from "./sign-up-form.styles";
+import { SignUpFormContainer, SignUpButton } from "./sign-up-form.styles";
 
 const defaultFormFields = {
   displayName: "",
@@ -32,16 +31,15 @@ const SignUpForm = () => {
       return;
     }
 
-    try { 
+    try {
       dispatch(signUpStart(displayName, email, password));
       resetFormFields();
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         alert("Невозможно создать нового пользователя, email уже используется");
       }
-      console.log("user creation encountered an error", error);  
+      console.log("user creation encountered an error", error);
     }
-
   };
 
   const handleChange = async (event) => {
@@ -89,7 +87,7 @@ const SignUpForm = () => {
           value={confirmPassword}
           onChange={handleChange}
         />
-        <Button type="submit">Регистрация</Button>
+        <SignUpButton type="submit">Регистрация</SignUpButton>
       </form>
     </SignUpFormContainer>
   );

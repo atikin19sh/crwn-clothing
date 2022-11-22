@@ -9,7 +9,7 @@ import CategoryPreview from "../../components/category-preview/category-preview.
 import Spinner from "../../components/spinner/spinner.component";
 
 const CategoriesPreview = () => {
-  const categories = useSelector(selectCategoriesMap);
+  const categoriesMap = useSelector(selectCategoriesMap);
   const isLoading = useSelector(selectCategoriesIsLoading);
 
   return (
@@ -17,8 +17,8 @@ const CategoriesPreview = () => {
       {isLoading ? (
         <Spinner />
       ) : (
-        Object.keys(categories).map((title) => {
-          const productsData = categories[title];
+        Object.keys(categoriesMap).map((title) => {
+          const productsData = categoriesMap[title];
           return (
             <section key={title}>
               <CategoryPreview title={title} productsData={productsData} />
