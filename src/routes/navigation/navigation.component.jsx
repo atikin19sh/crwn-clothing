@@ -24,7 +24,7 @@ const Navigation = () => {
 
   const signOutHandler = () => {
     dispatch(signOutStart());
-  }
+  };
 
   return (
     <Fragment>
@@ -35,9 +35,12 @@ const Navigation = () => {
         <NavLinksContainer>
           <NavLink to="shop">МАГАЗИН</NavLink>
           {currentUser ? (
-            <NavLink as="span" onClick={signOutHandler}>
-              ВЫЙТИ
-            </NavLink>
+            <>
+              <div>Вы вошли как {currentUser.displayName}</div>
+              <NavLink as="span" onClick={signOutHandler}>
+                ВЫЙТИ
+              </NavLink>
+            </>
           ) : (
             <NavLink to="auth">ВОЙТИ</NavLink>
           )}
