@@ -12,7 +12,6 @@ export const selectIsCartOpen = createSelector(
 export const selectCartItems = createSelector(
   [selectCartReducer],
   (cartReducer) => {
-    console.log(cartReducer);
     return cartReducer.cartItems;
   },
 );

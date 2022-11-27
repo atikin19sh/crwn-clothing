@@ -13,6 +13,7 @@ export type CategoryItem = {
 };
 
 export type Category = {
+  id: number;
   title: string;
   titleRU: string;
   imageUrl: string;
@@ -20,11 +21,5 @@ export type Category = {
 };
 
 export type CategoryMap = {
-  items: CategoryItem[];
-  titleRU: string;
+  [key: string]: Category;
 };
-
-export type CategoryData = {
-  [key: string]: CategoryMap;
-};
-
