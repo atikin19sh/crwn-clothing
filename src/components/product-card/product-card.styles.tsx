@@ -55,4 +55,5 @@ export const Name = styled.h3`
 
 export const Price = styled.span`
   width: 10%;
+  text-align: right;
 `;

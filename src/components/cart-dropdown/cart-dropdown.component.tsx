@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { selectCartItems } from "../../store/cart/cart.selector";
@@ -19,10 +20,11 @@ const CartDropdown = () => {
 
   const cartItems = useSelector(selectCartItems);
 
-  const goToCheckoutHandler = () => {
+  const goToCheckoutHandler = useCallback(() => {
     navigate("/checkout");
     dispatch(setIsCartOpen(false));
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <CartDropdownContainer>

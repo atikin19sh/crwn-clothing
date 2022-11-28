@@ -18,6 +18,7 @@ import {
   collection,
   writeBatch,
   query,
+  orderBy,
   getDocs,
   QueryDocumentSnapshot,
 } from "firebase/firestore";
@@ -32,7 +33,7 @@ const firebaseConfig = {
   appId: "1:703848486560:web:eb64a49db83dedb8269bc5",
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
@@ -68,7 +69,7 @@ export const addCollectionAndDocuments = async <T extends ObjectToAdd>(
 
 export const getCategoriesAndDocuments = async (): Promise<Category[]> => {
   const collectionRef = collection(db, "categories");
-  const q = query(collectionRef);
+  const q = query(collectionRef, orderBy("id"));
 
   const querySnapshot = await getDocs(q);
   return querySnapshot.docs.map(
