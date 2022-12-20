@@ -8,7 +8,6 @@ import {
   signOut,
   onAuthStateChanged,
   User,
-  NextOrObserver,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -22,7 +21,9 @@ import {
   getDocs,
   QueryDocumentSnapshot,
 } from "firebase/firestore";
-import { Category } from "../../store/categories/categories.types";
+import type { Category } from "../../store/categories/categories.types";
+
+// Стартовая конфигурация
 
 const firebaseConfig = {
   apiKey: "AIzaSyDVmrV7ceW4A1Ne0RMJRbp_aWq5JlyyXsU",
@@ -35,6 +36,8 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 
+// Auth - обработка данных пользователей
+
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
   prompt: "select_account",
@@ -44,6 +47,43 @@ export const auth = getAuth();
 
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleProvider);
+
+export const createAuthUserWithEmailAndPassword = async (
+  email: string,
+  password: string,
+) => {
+  if (!email || !password) return;
+
+  return await createUserWithEmailAndPassword(auth, email, password);
+};
+
+export const signInAuthUserWithEmailAndPassword = async (
+  email: string,
+  password: string,
+) => {
+  if (!email || !password) return;
+
+  const user = await signInWithEmailAndPassword(auth, email, password);
+
+  return user;
+};
+
+export const signOutUser = async () => await signOut(auth);
+
+export const getCurrentUser = (): Promise<User | null> => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject,
+    );
+  });
+};
+
+// Firestore - работа с базой данных
 
 export const db = getFirestore();
 
@@ -114,42 +154,4 @@ export const createUserDocumentFromAuth = async (
   }
 
   return userSnapshot as QueryDocumentSnapshot<UserData>;
-};
-
-export const createAuthUserWithEmailAndPassword = async (
-  email: string,
-  password: string,
-) => {
-  if (!email || !password) return;
-
-  return await createUserWithEmailAndPassword(auth, email, password);
-};
-
-export const signInAuthUserWithEmailAndPassword = async (
-  email: string,
-  password: string,
-) => {
-  if (!email || !password) return;
-
-  const user = await signInWithEmailAndPassword(auth, email, password);
-
-  return user;
-};
-
-export const signOutUser = async () => await signOut(auth);
-
-export const onAuthStateChangedListener = (callback: NextOrObserver<User>) =>
-  onAuthStateChanged(auth, callback);
-
-export const getCurrentUser = (): Promise<User | null> => {
-  return new Promise((resolve, reject) => {
-    const unsubscribe = onAuthStateChanged(
-      auth,
-      (userAuth) => {
-        unsubscribe();
-        resolve(userAuth);
-      },
-      reject,
-    );
-  });
 };
